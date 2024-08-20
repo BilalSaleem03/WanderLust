@@ -1,0 +1,220 @@
+body{
+    font-family: "Poppins", sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    /* position: relative; */
+}
+.container{
+    /* flex: 1; */
+}
+.navbar{
+    height : 5rem;
+    background-color: white;
+}
+.navbar-brand{
+    font-size: 2vw;
+    color: rgb(211, 53, 53)
+}
+.nnav-link{
+    color: pink;
+}
+/* footer Style */
+.footer{
+    background-color: rgb(235, 241, 241);
+    display: flex;
+    height: 10vh;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding-bottom: 1vh;
+    margin-top: 15vh;
+    /* position:absolute;
+    bottom: 0px;
+    right: 0px;
+    left: 0px; */
+    
+}
+.footer .f-info-links .link{
+    text-decoration: none;
+    color: black;
+}
+.footer .f-info-links .link:hover{
+    text-decoration: underline;
+}
+
+/* card styling */
+.row{
+    margin-left: 3vw;
+}
+
+.card{
+    border: none;
+    padding-bottom: 5vh;
+    width: 25rem;
+    /* border: 2px solid black; */
+}
+.card img{
+    height: 20rem;
+}
+.card .card-img-top{
+    border-radius: 2vh;
+    width: 100%;
+    object-fit: cover;
+}
+.card-img-overlay:hover{
+    opacity: 0.2;
+    background-color: white;
+}
+.card .card-body{
+    padding: 0px;
+}
+.card .card-text{
+    font-weight: 400;
+}
+.listing-link{
+    text-decoration: none;
+}
+
+/* new page */
+.new-btn{
+    background-color: rgb(211, 53, 53);
+    border: none;
+}
+
+/* edit page */
+.edit-btn{
+    background-color: rgb(211, 53, 53);
+    border: none;
+}
+
+/* show page */
+
+.show-card-outer{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 5rem;
+    margin-bottom: 10vh;
+    /* height: 100vh; */
+}
+.show-card-inner{
+    width: 25vw;
+}
+.show-card-inner .image img{
+    width: 25vw;
+    border-radius: 1vw;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.show-card-text{
+    display: flex;
+    flex-direction: column;
+    margin-top: 3vh;
+}
+.show-card-text div{
+    padding: 0.3vh 0px;
+    font-weight: 500;
+}
+.show-btns{
+    display: flex;
+}
+.show-edit-btn-outer{
+    
+    display: flex;
+}
+.show-edit-btn , .show-delete-btn{
+    background-color:  rgb(211, 53, 53);
+    width: 6vw;
+    color: black;
+    border-radius: 2vw;
+    text-align: center;
+    text-decoration: none;
+    margin-right: 1vw;  
+}
+.show-delete-btn-ll{
+    background-color: black;
+    color: white;
+}
+.review form{
+    display: flex;
+    flex-direction: column;
+    /* margin-bottom: 5vh; */
+}
+.review form button{
+    margin-top: 4px;
+    width: 5vw;
+    border-radius: 1rem;
+    padding: 0.3rem;
+    background-color: rgb(121, 222, 133);
+}
+.show-reviews-card{
+    border: 2px solid rgb(193, 157, 157);
+    position: relative;
+}
+.review-delete-btn{
+    border-radius: 1rem;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}
+
+#map{
+    height: 80vh;
+    width: 60vw;
+    /* border: 3px solid black; */
+}
+
+/* index page */
+.filters{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 3rem;
+    padding-top: 1rem;
+    margin-bottom: 1rem;
+}
+.filter{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 1rem;
+    opacity: 0.7;
+    
+}
+.filter:hover{
+    opacity: 1.9;
+    cursor: pointer;
+}
+
+.filter p{
+    font-size: small;
+}
+.tax-info{
+    display:none;
+}
+.form-switch{
+    border: 1px solid black;
+    border-radius: 1rem;
+    height: 3rem;
+    display: flex;
+    justify-content:space-around;
+    align-items:center;
+    margin-left: 13rem;
+    padding: 1rem;
+    width: 15rem;
+}
+
+/* nav-bar search */
+.search-btn{
+    border-radius: 3rem;
+}
+.search-space{
+border-radius: 3rem;
+padding: 0.5rem 2rem 0.5rem 2rem;
+}
+
+#comment{
+    border-radius: 1rem;
+}
+#review-submit-btn{
+    
+}

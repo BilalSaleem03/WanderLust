@@ -1,0 +1,93 @@
+<% layout("/layouts/boilerPlate") %>
+
+    <body>
+        <div class="show-card-outer">
+            <div class="show-card-inner">
+                <div class="image">
+                    <img src="<%=listing.image.url%>" class="card-img-top" alt="Listing Image">
+                </div>
+                <div class="show-card-text">
+                    <div><b>Listing Owner by : @<%=listing.owner.username%></b></div>
+                    <div><b>
+                            <%=listing.title%>
+                        </b></div>
+                    <div>
+                        <%=listing.description%>
+                    </div>
+                    <div>Rs <%=listing.price.toLocaleString("en-PK")%> /Night</div>
+                    <div>
+                        <%=listing.location%>
+                    </div>
+                    <div>
+                        <%=listing.country%>
+                    </div>
+                </div>
+                <%if(currUser && currUser._id.equals(listing.owner._id)){%>
+                    <div class="show-btns">
+                        <div class="show-edit-btn-outer">
+                            <a class="show-edit-btn" href="/listing/<%=listing.id%>/edit">Edit</a>
+                        </div>
+                        <form action="/listing/<%=listing.id%>?_method=DELETE" method="post">
+                            <button class="show-delete-btn show-delete-btn-ll">Delete</button>
+                        </form>
+                    </div>
+                    <%}%>
+            </div>
+            <hr>
+            <div class="review">
+                <%if(currUser){%>
+                    <form action="/listing/<%=listing.id%>/review" method="POST" novalidate class="needs-validation">
+                        <label for="rating">Rating</label>
+                        <input type="range" min="1" max="5" name="review[rating]" id="rating">
+                        <label for="comment">Comment</label>
+                        <textarea name="review[comment]" id="comment" rows="5" cols="20" required></textarea>
+                        <div class="invalid-feedback">Please Add a Comment</div>
+                        <button id="review-submit-btn">Submit</button>
+                    </form>
+                    <%}%>
+            </div>
+            <%if(listing.reviews.length> 0){ %>
+                <hr>
+                <h4>All Reviews</h4>
+
+
+                <div class="row">
+                    <% for(review of listing.reviews){ %>
+                        <div class="card col-12 mb-1 ms-1 show-reviews-card">
+                            <div class="card-name"><b>@<%=review.author.username%></b></div>
+                            <div class="card-text">
+                                <%=review.comment%>
+                            </div>
+                            <div class="card-text">
+                                <%=review.rating%> Stars
+                            </div>
+                            <form action="/listing/<%=listing.id%>/review/<%=review.id%>?_method=DELETE" method="post">
+                                <button class="btn btn-sm btn-dark mt-1 review-delete-btn">Delete</button>
+                            </form>
+                        </div>
+                        <%}%>
+                </div>
+                <%}%>
+                    <div class="row">
+                        <h3>Where will you be</h3>
+                        <div id="map"></div>
+                        <script>
+                            let mapToken = "<%= process.env.MAP_TOKEN %>"
+                            let listing = <%- JSON.stringify(listing) %>;
+                            mapboxgl.accessToken = mapToken;
+                            const map = new mapboxgl.Map({
+                                container: 'map', // container ID
+                                center: listing.geometry.coordinates, // starting position [lng, lat]. Note that lat must be set between -90 and 90
+                                zoom: 9 // starting zoom
+                            });
+
+                            const marker1 = new mapboxgl.Marker({ color: "red" })
+                                .setLngLat(listing.geometry.coordinates)
+                                .setPopup(new mapboxgl.Popup({ offset: 25})
+                                    .setHTML(`<h5>${listing.location}</h5><br>`+"<h8>Exact location provided after Booking</h8>"))
+                                .addTo(map);
+                        </script>
+
+                    </div>
+        </div>
+    </body>
