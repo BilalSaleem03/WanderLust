@@ -19,7 +19,7 @@ const listingsRouter = require("./routes/listing.js")
 const reviewsRouter = require("./routes/review.js")
 const userRouter = require("./routes/user.js")
 const Listing = require("./models/listing.js")
-const dbURL= process.env.ATLASDB_URL;
+const dbURL= process.env.ATLASDB_URL;    //mongoDb Atlas URl that connects us with cloud Database
 
 app.set("view engine" , "ejs");
 app.set("views" , path.join(path.join(__dirname ,"views")));
@@ -28,6 +28,8 @@ app.use(methodOverride("_method"));
 app.engine("ejs" , ejsMate);
 app.use(express.static(path.join(__dirname , "public")));
 
+
+//Session Storing code.....
 const store = MongoStore.create({
     mongoUrl : dbURL,
     crypto:{
@@ -72,6 +74,8 @@ app.use((req  , res , next)=>{
     next();
 })
 
+
+//connection to Database
 async function main(){
     await mongoose.connect(dbURL)
 }
@@ -79,7 +83,7 @@ main().then((result)=>{
     console.log("DB Connected");
 }).catch((err)=>{console.log(err);})
 
-//Search APi
+//APi to Search something........
 app.post("/search" , async(req , res)=>{
     let userInpute = req.body.search;
     let allListings = await Listing.find({});
@@ -98,28 +102,36 @@ app.post("/search" , async(req , res)=>{
     
 })
 
+//Api related to listing
 app.use("/listing" , listingsRouter);
+//Api related to Reviews
 app.use("/listing/:id/review" , reviewsRouter);
+//Api related to User
 app.use("/" , userRouter);
 
-app.get("/demouser" ,async (req , res)=>{
-    let fakeUser = new User({
-        email:"bilal@gmail.com",
-        username:"_bilal_",
-    }) 
-    let newUser =await User.register(fakeUser , "Hello");
-    res.send(newUser);
-})
+// app.get("/demouser" ,async (req , res)=>{
+//     let fakeUser = new User({
+//         email:"bilal@gmail.com",
+//         username:"_bilal_",
+//     }) 
+//     let newUser =await User.register(fakeUser , "Hello");
+//     res.send(newUser);
+// })
 
-app.all("*" ,  (req , res , next)=>{  //for non-declared routs
+
+//When no above Api handle the get request  , that request is handled by this Api...
+app.all("*" ,  (req , res , next)=>{
     next(new MyError(500 , "Error is there"));
 })
 
+//Last Middleware occurs when no response sent. Mostly execute when request is received on undeclared route..
 app.use((err , re , res , next)=>{
-    let{statusCode= 500, message="Something went Wrong"} = err;
+    let{statusCode= 404, message="Page not found."} = err;
     res.render("listing/error.ejs" , {message});
 })
 
+
+//Server runner
 app.listen("3000" , ()=>{
     console.log("Server is Running.....")
 })
