@@ -14,22 +14,21 @@ module.exports.newListing = (req , res)=>{
 }
 
 module.exports.newListingPost = async (req , res , next)=>{
-    let responce = await geocodingClient
+    let responce = await geocodingClient    //will return coordinates of location given
         .forwardGeocode({
             query: req.body.listing.location,
             limit:1,
         })
         .send();
 
-    let url = req.file.path;
+    let url = req.file.path;   //get url and filename to access picture from cloudanary
     let filename = req.file.filename;
     const newListing = new Listing(req.body.listing)
     newListing.owner = req.user._id;
     newListing.image = {url , filename};
     newListing.geometry = responce.body.features[0].geometry;
     let savedListing = await newListing.save();
-    // console.log(savedListing);
-    req.flash("success" , "New Listing Added Successfully");
+    req.flash("success" , "New Listing Added Successfully");   //creating a flash message..
     res.redirect("/listing");
 }
 

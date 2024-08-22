@@ -8,8 +8,8 @@ module.exports.signupPost = async (req ,res)=>{
     try{
         let {username , email , password} = req.body;
         let newUser = new User({username , email});
-        let newRegistered = await User.register(newUser , password);
-        req.login(newRegistered , (err)=>{
+        let newRegistered = await User.register(newUser , password);  // register new usr in database(apply salting and hashing on password befort storing it)
+        req.login(newRegistered , (err)=>{ //login is passport's inner method
             if(err){
                 return next(err);
             }
@@ -35,7 +35,7 @@ module.exports.loginPost = async(req , res)=>{
 }
 
 module.exports.logout = (req ,res)=>{
-    req.logOut((err)=>{
+    req.logOut((err)=>{   //logout is pre defined method in passport
         if(err){
             req.flash("error" , err.messgae);
             return res.redirect("/listing");

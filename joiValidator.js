@@ -1,4 +1,6 @@
-const joi = require("joi");
+//valitadion for wrong input from client side by over passing client side validation(i.e send POST request by Postman)
+
+const joi = require("joi");  //install npm package joi
 
 module.exports.listingSchema = joi.object({
     listing : joi.object({

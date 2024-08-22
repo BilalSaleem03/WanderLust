@@ -1,10 +1,10 @@
 const express = require("express");
-const router = express.Router();
+const router = express.Router();   //our express has that router method
 const wrapAsync = require("../utility/wrapAsync.js")
 const {isLoggedIn, isOwner , listingValidation} = require("../middlewares.js");
 const {storage} = require("../cloudanaryConfg.js")
-const multer  = require('multer')
-const upload = multer({ storage })
+const multer  = require('multer')     //use as middleware to parse multipart/formdata
+const upload = multer({ storage })     //store file in cloud
 const listingControllers = require("../controllers/listings.js");
 
 

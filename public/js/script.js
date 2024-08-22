@@ -1,3 +1,6 @@
+
+//this script(written by Bootstrap) check client side validation in forms
+
 // Example starter JavaScript for disabling form submissions if there are invalid fields
 (() => {
     'use strict'

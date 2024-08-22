@@ -8,6 +8,6 @@ const userSchema = new mongoose.Schema({
     }
 })
 
-userSchema.plugin(passportLocalMongoose);
+userSchema.plugin(passportLocalMongoose);  //automatically generate username and password(implement hashing and salting) fields using passport-local-mongoose package. It also add an authenticate method that automatically authenticate the user
 
 module.exports = mongoose.model("User" , userSchema);

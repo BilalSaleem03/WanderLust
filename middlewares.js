@@ -7,7 +7,6 @@ const { listingSchema , reviewSchema } = require("./joiValidator.js");
 module.exports.isLoggedIn = (req , res , next)=>{
     if(!req.isAuthenticated()){
         req.session.redirectUrl = req.originalUrl;
-        console.log("2222")
         req.flash("error" , "You must be loggedIn");
         return res.redirect("/login");
     }
