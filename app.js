@@ -53,7 +53,7 @@ app.use(express.static(path.join(__dirname , "public")));    //This middleware s
 
 //Here in Mongo Store which is a Session Storage for production level code.....
 const store = MongoStore.create({
-    mongoUrl : dbURL,
+    mongoUrl : localDbURL,
     crypto:{
         secret : process.env.SECRET,
     },
@@ -107,7 +107,7 @@ app.use((req  , res , next)=>{
 
 //connection to Database
 async function main(){
-    await mongoose.connect(dbURL)
+    await mongoose.connect(localDbURL)
 }
 main().then((result)=>{
     console.log("DB Connected");
@@ -158,6 +158,6 @@ app.use((err , re , res , next)=>{
 
 
 //Server runner
-app.listen("3000" , ()=>{
+app.listen("8080" , ()=>{
     console.log("Server is Running.....")
 })
